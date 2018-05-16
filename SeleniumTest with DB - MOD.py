@@ -85,5 +85,6 @@ for instance in session.query(Event).order_by(Event.id):  #order_by is optional 
 
 # my_events = session.query(Event).all()
 # print(my_events)
+print("All Done")
 
 
