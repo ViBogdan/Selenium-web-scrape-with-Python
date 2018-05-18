@@ -33,20 +33,20 @@ class Event(Base):
 
 
 Base.metadata.create_all(engine)
-driver = webdriver.Chrome()
 
-# TODO make headless
-# options = webdriver.ChromeOptions()
-# options.add_argument('headless')
-# options.add_argument('--no-sandbox')
-# driver = webdriver.Chrome(chrome_options=options)
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
+options.add_argument('--no-sandbox')
+options.add_argument("--lang=en")
+driver = webdriver.Chrome(chrome_options=options)
 
 for fb_page in config.fb_pages:
     driver.get(fb_page + '/events')
     driver.maximize_window()
+    # TODO remove sleep if possible
     time.sleep(3)
 
-    past_events = driver.find_element_by_xpath("//*[contains(text(), 'Past Events') or contains(text(), 'Past events')]")
+    past_events = driver.find_element_by_xpath("//*[contains(text(), 'Past Events')]")
     driver.execute_script("return arguments[0].scrollIntoView();", past_events)
     time.sleep(5)
 
