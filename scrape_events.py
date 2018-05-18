@@ -68,7 +68,7 @@ for fb_page in config.fb_pages:
         # Sat 19:00 UTC+03 · 34 guests
         # Wed 7:00 PM UTC+03
         # 3 May–4 May · 1,582 guests (not handled)
-        match = re.search('(\d{1,2}:\d{2}\s+(?:AM|PM\s+)?)UTC(\+\d{2})', raw_time_str)
+        match = re.search('(\d{1,2}:\d{2}\s+(?:AM\s+|PM\s+)?)UTC(\+\d{2})', raw_time_str)
 
         if not match:
             print("Failed to find match from '{}'".format(raw_time_str))
