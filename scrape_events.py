@@ -69,16 +69,19 @@ def extract_date(month, day, raw_time_str):
         return parsed_start_date, None
 
     # Sun, 13 May · 2 times · 79 guests
-    single_date_pattern2 = '\S+,\s+\d+\s+\S+'
+    # Sun May 13 · 2 Times · 79 guests
+    single_date_pattern2 = '(\S+,?\s+\d*\s*\S{3}\s*\d*)\s+·'
     single_date_match2 = re.search(single_date_pattern2, raw_time_str)
     if single_date_match2:
-        parsed_start_date = parse(single_date_match2.group(0),
+        parsed_start_date = parse(single_date_match2.group(1),
                                   default=current_day_start)
         return parsed_start_date, None
 
+    # May 7 - May 13 · 230 guests
     # 3 May–4 May · 1,582 guests
     # 18 April 2016–22 April 2016
-    multiple_date_pattern = '(\d+\s+\S+(?:\s+\d+)?)–(\d+\s+\S+(?:\s+\d+)?)'
+    # Apr 18, 2016 - Apr 22, 2016
+    multiple_date_pattern = '(\d*\s*\S+(?:\s+\d+,?\s*\d*)?)\s*(?:–|-)\s*(\d*\s*\S+(?:\s+\d+,?\s*\d*)?)'
     multiple_date_match = re.search(multiple_date_pattern, raw_time_str)
     if multiple_date_match:
         parsed_start_date = parse(multiple_date_match.group(1),
@@ -123,7 +126,7 @@ for fb_page in config.fb_pages:
     # TODO remove sleep if possible
     time.sleep(3)
 
-    past_events = driver.find_element_by_xpath("//*[contains(text(), 'Past Events')]")
+    past_events = driver.find_element_by_id("past_events_card")
     driver.execute_script("return arguments[0].scrollIntoView();", past_events)
     time.sleep(5)
 
