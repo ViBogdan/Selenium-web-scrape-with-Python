@@ -10,6 +10,8 @@ name = "pypi"
 selenium = "*"
 sqlalchemy = "*"
 python-dateutil = "*"
+flask = "*"
+flask-sqlalchemy = "*"
 
 
 [dev-packages]
