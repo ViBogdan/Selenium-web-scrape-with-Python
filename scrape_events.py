@@ -141,6 +141,6 @@ driver.quit()
 for instance in session.query(Event).order_by(Event.id):  #order_by is optional and will order based om given item
     print(instance)
 
-print("All Done! The DB is created and populated! You're good to go! Have fun!")
+print("All Done! The DB is created and populated! You're good to go! Have fun!!!!!")
 
 
