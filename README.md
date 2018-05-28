@@ -20,6 +20,7 @@ pipenv install
 
 ## Running
 ```
+export DATABASE_URL='sqlite:///scraped_events.db'
 pipenv run python scrape_events.py
 ```
 
