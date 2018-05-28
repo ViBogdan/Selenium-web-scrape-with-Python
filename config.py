@@ -1,4 +1,4 @@
-db_connection_string = 'sqlite:///scraped_events.db'
+db_connection_string = r'sqlite:///C:\Users\Bogdan\PycharmProjects\Selenium-web-scrape-with-Python\scraped_events.db'
 
 fb_pages = [
     'https://www.facebook.com/pg/Galeria-Elite-Prof-Art-185399108168591',
