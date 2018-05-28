@@ -1,6 +1,7 @@
 import datetime
 import re
 import time
+import os
 
 from dateutil.parser import parse
 from dateutil.tz import tzlocal
@@ -11,7 +12,8 @@ from sqlalchemy.ext.declarative import declarative_base
 
 import config
 
-engine = create_engine(config.db_connection_string)
+database_url = os.environ['DATABASE_URL']
+engine = create_engine(database_url)
 Session = sessionmaker(bind=engine)
 session = Session()
 
