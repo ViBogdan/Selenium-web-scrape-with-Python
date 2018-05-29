@@ -15,5 +15,13 @@ header {
 }
 
 section {
-  padding: 150px 0;
+  padding: 50px 0;
+}
+
+.dual-listbox .dual-listbox__search {
+  align-self: center
+}
+
+.dual-listbox .dual-listbox__container {
+  align-self: center
 }
