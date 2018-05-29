@@ -30,8 +30,8 @@ class Event(Base):
     end_date = Column(DateTime)
 
     def __repr__(self):
-        return "<Event(name='%s', venue='%s', date='%s')>" % (
-            self.name, self.venue, self.start_date
+        return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s')>" % (
+            self.name, self.venue, self.start_date, self.end_date
         )
 
 

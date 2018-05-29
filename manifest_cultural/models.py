@@ -11,6 +11,6 @@ class Event(db.Model):
     end_date = db.Column(db.DateTime)
 
     def __repr__(self):
-        return "<Event(name='%s', venue='%s', date='%s')>" % (
-            self.name, self.venue, self.start_date
+        return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s')>" % (
+            self.name, self.venue, self.start_date, self.end_date
         )
