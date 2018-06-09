@@ -15,11 +15,6 @@
 
     <!-- Custom styles for this template -->
     <link href="static/css/scrolling-nav.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dual-listbox@1.0.9/dist/dual-listbox.css">
-    <script src="https://cdn.jsdelivr.net/npm/dual-listbox@1.0.9/dist/dual-listbox.min.js" defer></script>
-    <script src="static/js/main.js" defer></script>
-
   </head>
 
   <body id="page-top">
@@ -55,22 +50,17 @@
     </header>
 
 
-    <!-- The start of the section which contains the dual-listbox here -->
-      <section id="about">
-        <div class="main-container">
+    <section id="about">
+      <div class="main-container">
+        <form action="" method="post" class="events_selector">
+        {% for event in events: %}
+          <input type="checkbox" align="center">{{ event.name }}<br>
+        {% endfor %}
+          <input type="submit" value="Submit" align="center">
+        </form>
+      </div>
+    </section>
 
-            <p align="center">Chose the events you want to post to facebook: </p>
-              <div>
-                <select class="demo" multiple>
-                  {% for event in events: %}
-                    <option value="{{loop.index}}">{{ event.name }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-
-        </div>
-      </section>
-    <!-- The end of the section which contains the dual-listbox here -->
 
 
     <!-- Footer -->

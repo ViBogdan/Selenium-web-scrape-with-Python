@@ -18,10 +18,6 @@ section {
   padding: 50px 0;
 }
 
-.dual-listbox .dual-listbox__search {
-  align-self: center
-}
-
-.dual-listbox .dual-listbox__container {
+.events_selector {
   align-self: center
 }
