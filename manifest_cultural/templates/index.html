@@ -52,11 +52,23 @@
 
     <section id="about">
       <div class="main-container">
-        <form action="" method="post" class="events_selector">
+        <form action="" method="post">
         {% for event in events: %}
-          <input type="checkbox" align="center">{{ event.name }}<br>
+          <input type="checkbox" name="new_events" value="{{ event.name }} @ {{ event.venue }} at {{ event.start_date }}">  {{ event.name }} @ {{ event.venue }} at {{ event.start_date }}<br>
         {% endfor %}
           <input type="submit" value="Submit" align="center">
+        </form>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="main-container">
+        <form action="" method="post">
+          <textarea>
+            {% for new_event in new_events %}
+              {{ new_event }}
+            {% endfor %}
+          </textarea>
         </form>
       </div>
     </section>

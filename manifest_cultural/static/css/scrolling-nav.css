@@ -15,9 +15,14 @@ header {
 }
 
 section {
-  padding: 50px 0;
+  padding: 30px 0;
 }
 
-.events_selector {
-  align-self: center
+.main-container {
+  padding-left: 100px;
+}
+
+textarea {
+  width: 1000px;
+  height: 1000px;
 }
