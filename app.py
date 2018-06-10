@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect,url_for
+from flask import render_template, request
 from manifest_cultural import app, db
 from manifest_cultural.models import Event
 
