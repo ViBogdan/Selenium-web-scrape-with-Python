@@ -10,7 +10,6 @@ def index():
 
     if request.method == "POST":
         new_events = request.form.getlist('new_events')
-        # return redirect(url_for('index', _anchor="services", new_events=new_events))
 
     return render_template('index.html', events=events, new_events=new_events)
 
