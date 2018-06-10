@@ -17,8 +17,31 @@
     <link href="static/css/scrolling-nav.css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript -->
-    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/jquery/jquery.min.js" defer></script>
 
+     <!-- Bootstrap core JavaScript -->
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="static/vendor/jquery-easing/jquery.easing.min.js" defer></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="static/js/scrolling-nav.js" defer></script>
+
+    <script>
+    function getCheckedBoxes(checkboxes) {
+        $("html, body").animate({ scrollTop: $("#edit").offset().top }, 500);
+        let checkedEvents = [];
+        // loop over them all
+        for (var i=0; i<checkboxes.length; i++) {
+           // And stick the checked ones onto an array...
+           if (checkboxes[i].checked) {
+              checkedEvents.push(checkboxes[i].value+'\n');
+           }
+        }
+        $("#edit-area").html(checkedEvents);
+    };
+    </script>
   </head>
 
   <body id="page-top">
@@ -56,7 +79,7 @@
 
     <section id="select">
       <div class="main-container">
-        <form action="" method="post">
+        <form action="javascript:void(0);" onSubmit="getCheckedBoxes(this)" method="post">
         {% for event in events: %}
           <input type="checkbox" name="new_events" value="{{ event.name }} @ {{ event.venue }} at {{ event.start_date }}">  {{ event.name }} @ {{ event.venue }} at {{ event.start_date }}<br>
         {% endfor %}
@@ -70,17 +93,7 @@
       <div class="main-container">
           <p> Your selections are collected here: </p>
 
-
-          {% if new_events %}
-            <script>
-               $("html, body").animate({ scrollTop: $("#edit").offset().top }, 500);
-            </script>
-          {% endif %}
-
-          <textarea>
-            {% for new_event in new_events %}
-              {{ new_event }}
-            {% endfor %}
+          <textarea id="edit-area">
           </textarea>
 
       </div>
@@ -93,15 +106,6 @@
       </div>
       <!-- /.container -->
     </footer>
-
-      <!-- Bootstrap core JavaScript -->
-    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom JavaScript for this theme -->
-    <script src="static/js/scrolling-nav.js"></script>
 
   </body>
 
