@@ -27,6 +27,7 @@
 
     <!-- Custom JavaScript for this theme -->
     <script src="static/js/scrolling-nav.js" defer></script>
+    <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 
     <script>
     function getCheckedBoxes(checkboxes) {
@@ -92,9 +93,10 @@
     <section id="edit">
       <div class="main-container">
           <p> Your selections are collected here: </p>
-
           <textarea id="edit-area">
           </textarea>
+
+          <script>autosize(document.getElementById("edit-area"));</script>
 
       </div>
     </section>
