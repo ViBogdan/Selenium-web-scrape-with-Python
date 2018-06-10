@@ -18,13 +18,6 @@
 
     <!-- Bootstrap core JavaScript -->
     <script src="static/vendor/jquery/jquery.min.js"></script>
-    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom JavaScript for this theme -->
-    <script src="static/js/scrolling-nav.js"></script>
 
   </head>
 
@@ -40,13 +33,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+              <a class="nav-link js-scroll-trigger" href="#select">Select</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+              <a class="nav-link js-scroll-trigger" href="#edit">Edit</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="#maintain">Maintain</a>
             </li>
           </ul>
         </div>
@@ -61,7 +54,7 @@
     </header>
 
 
-    <section id="about">
+    <section id="select">
       <div class="main-container">
         <form action="" method="post">
         {% for event in events: %}
@@ -73,14 +66,14 @@
       </div>
     </section>
 
-    <section id="services">
+    <section id="edit">
       <div class="main-container">
           <p> Your selections are collected here: </p>
 
 
           {% if new_events %}
             <script>
-               $("html, body").animate({ scrollTop: $("#services").offset().top }, 500);
+               $("html, body").animate({ scrollTop: $("#edit").offset().top }, 500);
             </script>
           {% endif %}
 
@@ -100,6 +93,15 @@
       </div>
       <!-- /.container -->
     </footer>
+
+      <!-- Bootstrap core JavaScript -->
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="static/js/scrolling-nav.js"></script>
 
   </body>
 
