@@ -15,6 +15,17 @@
 
     <!-- Custom styles for this template -->
     <link href="static/css/scrolling-nav.css" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="static/js/scrolling-nav.js"></script>
+
   </head>
 
   <body id="page-top">
@@ -57,35 +68,30 @@
           <input type="checkbox" name="new_events" value="{{ event.name }} @ {{ event.venue }} at {{ event.start_date }}">  {{ event.name }} @ {{ event.venue }} at {{ event.start_date }}<br>
         {% endfor %}
           <br>
-          <input type="submit" value="Submit" align="center">
+          <input type="submit" value="Submit" align="center" id="submit">
         </form>
       </div>
     </section>
 
     <section id="services">
       <div class="main-container">
-        <form action="" method="post">
           <p> Your selections are collected here: </p>
-          <textarea>
 
+
+          {% if new_events %}
+            <script>
+               $("html, body").animate({ scrollTop: $("#services").offset().top }, 500);
+            </script>
+          {% endif %}
+
+          <textarea>
             {% for new_event in new_events %}
               {{ new_event }}
             {% endfor %}
-
-            <!--{% if new_events %}-->
-            <!--<script>-->
-                <!--$(function() {-->
-                   <!--$("html, body").animate({ scrollTop: $("#{{ services }}").offset().top }, 500);-->
-                <!--});-->
-            <!--</script>-->
-            <!--{% endif %}-->
-
           </textarea>
-        </form>
+
       </div>
     </section>
-
-
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
@@ -94,16 +100,6 @@
       </div>
       <!-- /.container -->
     </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="static/vendor/jquery/jquery.min.js"></script>
-    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom JavaScript for this theme -->
-    <script src="static/js/scrolling-nav.js"></script>
 
   </body>
 
