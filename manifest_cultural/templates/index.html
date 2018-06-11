@@ -80,10 +80,14 @@
 
     <section id="select">
       <div class="main-container">
-        <form action="javascript:void(0);" onSubmit="getCheckedBoxes(this)" method="post">
+        <p><b><u>Select your desired events and press submit: </u></b></p>
+        <form action="javascript:void(0);" onSubmit="getCheckedBoxes(this) &
+                      autosize(document.getElementById('edit-area'));" method="post">
+
         {% for event in events: %}
           <input type="checkbox" name="new_events" value="{{ event.name }} @ {{ event.venue }} at {{ event.start_date }}">  {{ event.name }} @ {{ event.venue }} at {{ event.start_date }}<br>
         {% endfor %}
+
           <br>
           <input type="submit" value="Submit" align="center" id="submit">
         </form>
@@ -92,11 +96,10 @@
 
     <section id="edit">
       <div class="main-container">
-          <p> Your selections are collected here: </p>
+        <p><b><u>Your selections are collected here: </u></b></p>
+
           <textarea id="edit-area">
           </textarea>
-
-          <script>autosize(document.getElementById("edit-area"));</script>
 
       </div>
     </section>
