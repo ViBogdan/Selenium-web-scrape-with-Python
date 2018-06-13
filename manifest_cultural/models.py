@@ -9,8 +9,8 @@ class Event(db.Model):
     venue = db.Column(db.String)
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
-    first_date = db.Column(db.String)
-    second_date = db.Column(db.String)
+    first_date = db.Column(db.DateTime)
+    second_date = db.Column(db.DateTime)
 
     def __repr__(self):
         return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s', first_date='%s', second_date='%s')>" % (
