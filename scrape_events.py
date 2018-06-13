@@ -28,10 +28,12 @@ class Event(Base):
     venue = Column(String)
     start_date = Column(DateTime)
     end_date = Column(DateTime)
+    first_date = Column(String)
+    second_date = Column(String)
 
     def __repr__(self):
-        return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s')>" % (
-            self.name, self.venue, self.start_date, self.end_date
+        return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s', first_date='%s'), second_date='%s'>" % (
+            self.name, self.venue, self.start_date, self.end_date, self.first_date, self.second_date
         )
 
 
@@ -122,6 +124,25 @@ def process_event(element_container):
     session.commit()
 
 
+def process_recurring_event(recurring_element_container):
+
+    next_dates = recurring_element_container.find_elements_by_css_selector('._2l43.clearfix._ikh')
+
+    new_recurring_event = Event(
+        name=recurring_element_container.find_element_by_css_selector('._2l3f._2pic').text,
+        venue=recurring_element_container.find_element_by_css_selector('._2l3g._2pic').text,
+        first_date='{} {} {}'.format(next_dates[0].find_element_by_class_name('_5a4-').text,
+                                     next_dates[0].find_element_by_class_name('_5a4z').text,
+                                     next_dates[0].find_element_by_css_selector('._2l4t._4bl9').text),
+        second_date='{} {} {}'.format(next_dates[1].find_element_by_class_name('_5a4-').text,
+                                      next_dates[1].find_element_by_class_name('_5a4z').text,
+                                      next_dates[1].find_element_by_css_selector('._2l4t._4bl9').text)
+    )
+
+    session.add(new_recurring_event)
+    session.commit()
+
+
 for fb_page in config.fb_pages:
     driver.get(fb_page + '/events')
     driver.maximize_window()
@@ -135,6 +156,13 @@ for fb_page in config.fb_pages:
     elements_containers = driver.find_elements_by_class_name('_24er') #identifies the paragraph containing the each event
     for element_container in elements_containers:
         process_event(element_container)
+
+    try:
+        recurring_elements_containers = driver.find_elements_by_css_selector('._j6k.clearfix._ikh')
+        for recurring_element_container in recurring_elements_containers:
+            process_recurring_event(recurring_element_container)
+    except Exception as e:
+        pass
 
 
 # TODO quit even if there is an exception
