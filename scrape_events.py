@@ -32,7 +32,7 @@ class Event(Base):
     second_date = Column(DateTime)
 
     def __repr__(self):
-        return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s', first_date='%s'), second_date='%s'>" % (
+        return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s', first_date='%s', second_date='%s')>" % (
             self.name, self.venue, self.start_date, self.end_date, self.first_date, self.second_date
         )
 
