@@ -176,14 +176,9 @@ for fb_page in config.fb_pages:
     for element_container in elements_containers:
         process_event(element_container)
 
-    #since not all pages have recurring events we will try to retrieve recurring events and if not, pass
-    try:
-        recurring_elements_containers = driver.find_elements_by_css_selector('._j6k.clearfix._ikh')
-        for recurring_element_container in recurring_elements_containers:
-            process_recurring_event(recurring_element_container)
-    except Exception as e:
-        pass
-
+    recurring_elements_containers = driver.find_elements_by_css_selector('._j6k.clearfix._ikh')
+    for recurring_element_container in recurring_elements_containers:
+        process_recurring_event(recurring_element_container)
 
 # TODO quit even if there is an exception
 driver.quit()
