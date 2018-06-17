@@ -126,36 +126,26 @@ def process_event(element_container):
 
 def process_recurring_event(recurring_element_container):
 
-#list with the next 2 dates for recurring events
+    # list with the next 2 dates for recurring events
     next_dates = recurring_element_container.find_elements_by_css_selector('._2l43.clearfix._ikh')
+    next_dates_parsed = []
 
-#extract First Date from recurring list
-    month_first = next_dates[0].find_element_by_class_name('_5a4-').text
-    day_first = next_dates[0].find_element_by_class_name('_5a4z').text
-    raw_time_str_first = next_dates[0].find_element_by_css_selector('._2l4t._4bl9').text
+    for next_date in next_dates:
+        month_first = next_date.find_element_by_class_name('_5a4-').text
+        day_first = next_date.find_element_by_class_name('_5a4z').text
+        raw_time_str_first = next_date.find_element_by_css_selector('._2l4t._4bl9').text
 
-    parsed_first_date, empty_first = extract_date(month_first, day_first, raw_time_str_first)
-
-    if not parsed_first_date:
-        print("Failed to match time from '{}'".format(raw_time_str_first))
-        return
-
-#extract Second Date from recurring list
-    month_second = next_dates[1].find_element_by_class_name('_5a4-').text
-    day_second = next_dates[1].find_element_by_class_name('_5a4z').text
-    raw_time_str_second = next_dates[1].find_element_by_css_selector('._2l4t._4bl9').text
-
-    parsed_second_date, empty_second = extract_date(month_second, day_second, raw_time_str_second)
-
-    if not parsed_second_date:
-        print("Failed to match time from '{}'".format(raw_time_str_second))
-        return
+        parsed_date, _ = extract_date(month_first, day_first, raw_time_str_first)
+        if not parsed_date:
+            print("Failed to match time from '{}'".format(raw_time_str_first))
+            return
+        next_dates_parsed.append(parsed_date)
 
     new_recurring_event = Event(
         name=recurring_element_container.find_element_by_css_selector('._2l3f._2pic').text,
         venue=recurring_element_container.find_element_by_css_selector('._2l3g._2pic').text,
-        first_date=parsed_first_date,
-        second_date=parsed_second_date
+        first_date=next_dates_parsed[0],
+        second_date=next_dates_parsed[1],
     )
 
     session.add(new_recurring_event)
