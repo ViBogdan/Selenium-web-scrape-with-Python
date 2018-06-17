@@ -86,7 +86,11 @@
              autosize(document.getElementById('edit-area'));" method="post">
 
         {% for event in events: %}
-          <input type="checkbox" name="new_events" value="{{ event.name }} @ {{ event.venue }} at {{ event.start_date }}">  {{ event.name }} @ {{ event.venue }} at {{ event.start_date }}<br>
+          {% if event.start_date: %}
+            <input type="checkbox" name="new_events" value="{{ event.name }} @ {{ event.venue }} at {{ event.start_date }}">  {{ event.name }} @ {{ event.venue }} at {{ event.start_date }}<br>
+          {% else: %}
+            <input type="checkbox" name="new_events" value="{{ event.name }} @ {{ event.venue }} on {{ event.first_date }} and {{ event.second_date }}">  {{ event.name }} @ {{ event.venue }} on {{ event.first_date }} and {{ event.second_date }}<br>
+          {% endif %}
         {% endfor %}
 
           <br>

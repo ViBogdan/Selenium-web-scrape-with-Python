@@ -6,5 +6,6 @@ fb_pages = [
     'https://www.facebook.com/pg/UniversitateaRomanoAmericana',
     'https://www.facebook.com/pg/muzeul.literaturii.romane',
     'https://www.facebook.com/pg/CentruldeTeatruEducational',
-    'https://www.facebook.com/TNB.Ro'
+    'https://www.facebook.com/TNB.Ro',
+    'https://www.facebook.com/InterContinentalBucharestHotel'
 ]
