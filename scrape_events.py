@@ -45,12 +45,6 @@ options.add_argument('--no-sandbox')
 options.add_argument("--lang=en")
 driver = webdriver.Chrome(chrome_options=options)
 
-# Create a datetime for today at midnight with timezone info
-now = datetime.datetime.now()
-current_day_start = now.replace(
-    tzinfo=tzlocal(), hour=0, minute=0, second=0, microsecond=0
-)
-
 
 def extract_date(month, day, raw_time_str):
     """
@@ -108,10 +102,6 @@ def process_event(element_container):
 
     if not parsed_start_date:
         print("Failed to match time from '{}'".format(raw_time_str))
-        return
-
-    # Don't save events from the past
-    if parsed_start_date < current_day_start:
         return
 
     new_event = Event(
