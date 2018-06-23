@@ -17,32 +17,49 @@
     <link href="static/css/scrolling-nav.css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript -->
-    <script src="static/vendor/jquery/jquery.min.js" defer></script>
+    <script type="text/javascript" src="static/vendor/jquery/jquery.min.js" defer></script>
 
      <!-- Bootstrap core JavaScript -->
-    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+    <script type="text/javascript" src="static/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
 
     <!-- Plugin JavaScript -->
-    <script src="static/vendor/jquery-easing/jquery.easing.min.js" defer></script>
+    <script type="text/javascript" src="static/vendor/jquery-easing/jquery.easing.min.js" defer></script>
 
     <!-- Custom JavaScript for this theme -->
-    <script src="static/js/scrolling-nav.js" defer></script>
-    <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+    <script type="text/javascript" src="static/js/scrolling-nav.js" defer></script>
+    <script type="text/javascript" src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js" defer></script>
 
     <script>
-    function getCheckedBoxes(checkboxes) {
-        
-        $("html, body").animate({ scrollTop: $("#edit").offset().top }, 500);
-        let checkedEvents = [];
-        // loop over them all
-        for (var i=0; i<checkboxes.length; i++) {
-           // And stick the checked ones onto an array...
-           if (checkboxes[i].checked) {
-              checkedEvents.push(checkboxes[i].value+'\n');
-           }
-        }
-        $("#edit-area").html(checkedEvents);
-    };
+    document.addEventListener("DOMContentLoaded", function() {
+
+      $("#events-form").on('click', 'input[type=checkbox]', function() {
+          if(this.checked) {
+              $("#edit-area").append(this.value + '\n');
+              autosize($('#edit-area'));
+              autosize.update($('#edit-area'));
+          }
+      });
+
+      $(".date-filter").click(function(event){
+        event.preventDefault();
+        $.ajax({
+          url: "/ajax/events",
+          data: {
+            when: $(this).attr('data-id')
+          },
+          dataType: 'json',
+          success: function(result){
+            let events = '';
+            $.each(result, function(i, event) {
+              event_format = event.name +" @ " + event.venue + " at " + event.start_date
+              events += '<input type="checkbox" name="new_events" value="' + event_format + '">' + event_format + '<br>';
+            });
+            $("#events-form").html(events);
+          }
+        });
+      })
+
+    });
     </script>
   </head>
 
@@ -82,11 +99,11 @@
     <section id="select">
       <div class="main-container">
         <p><b><u>Select your desired events and press submit: </u></b></p>
+        <span>Event date:</span>
         <p>
-        <a href="/today">Today  </a><a href="/tomorrow">Tomorrow  </a><a href="/">All</a>
+        <a class=date-filter data-id="today" href="#">Today  </a><a class=date-filter data-id="tomorrow" href="#">Tomorrow</a>
         </p>
-        <form action="javascript:void(0);" onSubmit="getCheckedBoxes(this) &
-             autosize(document.getElementById('edit-area'));" method="post">
+        <form id=events-form>
 
         {% for event in events: %}
           {% if event.start_date: %}
@@ -97,7 +114,6 @@
         {% endfor %}
 
           <br>
-          <input type="submit" value="Submit" align="center" id="submit">
         </form>
       </div>
     </section>
@@ -106,8 +122,7 @@
       <div class="main-container">
         <p><b><u>Your selections are collected here: </u></b></p>
 
-          <textarea id="edit-area">
-          </textarea>
+          <textarea id="edit-area"></textarea>
 
       </div>
     </section>
