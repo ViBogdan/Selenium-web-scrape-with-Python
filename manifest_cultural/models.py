@@ -16,3 +16,6 @@ class Event(db.Model):
         return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s', first_date='%s', second_date='%s')>" % (
             self.name, self.venue, self.start_date, self.end_date, self.first_date, self.second_date
         )
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
