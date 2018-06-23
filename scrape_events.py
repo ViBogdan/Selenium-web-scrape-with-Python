@@ -110,10 +110,6 @@ def process_event(element_container):
         print("Failed to match time from '{}'".format(raw_time_str))
         return
 
-    # Don't save events from the past
-    if parsed_start_date < current_day_start:
-        return
-
     new_event = Event(
         name=element_container.find_element_by_class_name(' _50f7').text,
         venue=driver.find_element_by_class_name('_64-f').text,
@@ -162,7 +158,8 @@ for fb_page in config.fb_pages:
     driver.execute_script("return arguments[0].scrollIntoView();", past_events)
     time.sleep(5)
 
-    elements_containers = driver.find_elements_by_class_name('_24er') #identifies the paragraph containing the each event
+    upcoming_elements_container = driver.find_element_by_id("upcoming_events_card") #identifies the upcoming events container
+    elements_containers = upcoming_elements_container.find_elements_by_class_name('_24er') #identifies event paragraph(event) in upcoming events container
     for element_container in elements_containers:
         process_event(element_container)
 
