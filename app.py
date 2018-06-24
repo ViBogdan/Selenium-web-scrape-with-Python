@@ -36,6 +36,16 @@ def get_events():
                 func.DATE(Event.second_date) == tomorrow,
             )
         )
+    elif when == 'later':
+        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+        events = db.session.query(Event).filter(
+            or_(
+                func.DATE(Event.start_date) > tomorrow,
+                func.DATE(Event.end_date) > tomorrow,
+                func.DATE(Event.first_date) > tomorrow,
+                func.DATE(Event.second_date) > tomorrow,
+            )
+        )
     else:
         events = db.session.query(Event)
 
