@@ -137,15 +137,27 @@ def process_recurring_event(recurring_element_container):
             return
         next_dates_parsed.append(parsed_date)
 
-    new_recurring_event = Event(
-        name=recurring_element_container.find_element_by_css_selector('._2l3f._2pic').text,
-        venue=recurring_element_container.find_element_by_css_selector('._2l3g._2pic').text,
-        first_date=next_dates_parsed[0],
-        second_date=next_dates_parsed[1],
-    )
+    if len(next_dates_parsed) == 2:
+        new_recurring_event = Event(
+            name=recurring_element_container.find_element_by_css_selector('._2l3f._2pic').text,
+            venue=recurring_element_container.find_element_by_css_selector('._2l3g._2pic').text,
+            first_date=next_dates_parsed[0],
+            second_date=next_dates_parsed[1]
+        )
+        session.add(new_recurring_event)
+        session.commit()
 
-    session.add(new_recurring_event)
-    session.commit()
+    elif len(next_dates_parsed) == 1:
+        new_recurring_event = Event(
+            name=recurring_element_container.find_element_by_css_selector('._2l3f._2pic').text,
+            venue=recurring_element_container.find_element_by_css_selector('._2l3g._2pic').text,
+            first_date=next_dates_parsed[0]
+        )
+        session.add(new_recurring_event)
+        session.commit()
+
+    else:
+        pass #if the recurring event does not have displayed dates, we skip adding it
 
 
 for fb_page in config.fb_pages:
