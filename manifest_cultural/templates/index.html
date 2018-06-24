@@ -32,6 +32,26 @@
     <script>
     document.addEventListener("DOMContentLoaded", function() {
 
+      function loadEvents(data) {
+        $.ajax({
+          url: "/ajax/events",
+          data: data,
+          dataType: 'json',
+          success: function(result){
+            let events = '';
+            $.each(result, function(i, event) {
+              if (event.start_date) {
+                event_format = event.name +" @ " + event.venue + " at " + event.start_date
+              } else {
+                event_format = event.name +" @ " + event.venue + " on " + event.first_date + " and " + event.second_date
+              }
+              events += '<input type="checkbox" name="new_events" value="' + event_format + '">' + event_format + '<br>';
+            });
+            $("#events-form").html(events);
+          }
+        });
+      }
+
       $("#events-form").on('click', 'input[type=checkbox]', function() {
           if(this.checked) {
               $("#edit-area").append(this.value + '\n');
@@ -42,22 +62,13 @@
 
       $(".date-filter").click(function(event){
         event.preventDefault();
-        $.ajax({
-          url: "/ajax/events",
-          data: {
-            when: $(this).attr('data-id')
-          },
-          dataType: 'json',
-          success: function(result){
-            let events = '';
-            $.each(result, function(i, event) {
-              event_format = event.name +" @ " + event.venue + " at " + event.start_date
-              events += '<input type="checkbox" name="new_events" value="' + event_format + '">' + event_format + '<br>';
-            });
-            $("#events-form").html(events);
-          }
-        });
+        let data = {
+          when: $(this).attr('data-id')
+        }
+        loadEvents(data);
       })
+
+      loadEvents();
 
     });
     </script>
@@ -101,20 +112,9 @@
         <p><b><u>Select your desired events and press submit: </u></b></p>
         <span>Event date:</span>
         <p>
-        <a class=date-filter data-id="today" href="#">Today  </a><a class=date-filter data-id="tomorrow" href="#">Tomorrow</a>
+        <a class=date-filter data-id="today" href="#">Today  </a><a class=date-filter data-id="tomorrow" href="#">Tomorrow </a><a class=date-filter data-id="all" href="#"> All</a>
         </p>
-        <form id=events-form>
-
-        {% for event in events: %}
-          {% if event.start_date: %}
-            <input type="checkbox" name="new_events" value="{{ event.name }} @ {{ event.venue }} at {{ event.start_date }}">  {{ event.name }} @ {{ event.venue }} at {{ event.start_date }}<br>
-          {% else: %}
-            <input type="checkbox" name="new_events" value="{{ event.name }} @ {{ event.venue }} on {{ event.first_date }} and {{ event.second_date }}">  {{ event.name }} @ {{ event.venue }} on {{ event.first_date }} and {{ event.second_date }}<br>
-          {% endif %}
-        {% endfor %}
-
-          <br>
-        </form>
+        <form id=events-form></form>
       </div>
     </section>
 
