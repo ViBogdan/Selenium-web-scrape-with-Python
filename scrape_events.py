@@ -30,10 +30,11 @@ class Event(Base):
     end_date = Column(DateTime)
     first_date = Column(DateTime)
     second_date = Column(DateTime)
+    link = Column(String)
 
     def __repr__(self):
-        return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s', first_date='%s', second_date='%s')>" % (
-            self.name, self.venue, self.start_date, self.end_date, self.first_date, self.second_date
+        return "<Event(name='%s', venue='%s', start_date='%s', end_date='%s', first_date='%s', second_date='%s', link='%s')>" % (
+            self.name, self.venue, self.start_date, self.end_date, self.first_date, self.second_date, self.link
         )
 
 
@@ -114,7 +115,8 @@ def process_event(element_container):
         name=element_container.find_element_by_class_name(' _50f7').text,
         venue=driver.find_element_by_class_name('_64-f').text,
         start_date=parsed_start_date,
-        end_date=parsed_end_date
+        end_date=parsed_end_date,
+        link=element_container.find_element_by_class_name('_4dmk').find_element_by_tag_name('a').get_attribute("href")
     )
     session.add(new_event)
     session.commit()
@@ -142,7 +144,9 @@ def process_recurring_event(recurring_element_container):
             name=recurring_element_container.find_element_by_css_selector('._2l3f._2pic').text,
             venue=recurring_element_container.find_element_by_css_selector('._2l3g._2pic').text,
             first_date=next_dates_parsed[0],
-            second_date=next_dates_parsed[1]
+            second_date=next_dates_parsed[1],
+            link=recurring_element_container.find_element_by_css_selector('._2l3f._2pic').find_element_by_tag_name('a')
+            .get_attribute("href")
         )
         session.add(new_recurring_event)
         session.commit()
@@ -151,7 +155,9 @@ def process_recurring_event(recurring_element_container):
         new_recurring_event = Event(
             name=recurring_element_container.find_element_by_css_selector('._2l3f._2pic').text,
             venue=recurring_element_container.find_element_by_css_selector('._2l3g._2pic').text,
-            first_date=next_dates_parsed[0]
+            first_date=next_dates_parsed[0],
+            link=recurring_element_container.find_element_by_css_selector('._2l3f._2pic').find_element_by_tag_name('a')
+            .get_attribute("href")
         )
         session.add(new_recurring_event)
         session.commit()
